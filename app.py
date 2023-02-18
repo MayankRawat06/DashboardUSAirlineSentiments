@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
-from wordcloud import WordCloud
+from wordcloud import WordCloud, STOPWORDS
 import matplotlib.pyplot as plt
 
 st.title('Sentimental Analysis of Tweets about US Airlines')
@@ -47,7 +47,7 @@ if len(choice) > 0:
     choice_data = data[data.airline.isin(choice)]
     fig_choice = px.histogram(choice_data, x = 'airline', y = 'airline_sentiment', histfunc='count', color = 'airline_sentiment', facet_col='airline_sentiment', labels={'airline_sentiment', 'tweets'}, height = 600, width = 800)
     st.plotly_chart(fig_choice)
-st.sidebar.header('TreeMap')
+st.sidebar.header('WordCloud')
 word_sentiment = st.sidebar.radio('Display WordCloud for what sentiment?', options=['positive', 'negative', 'neutral'])
 if not st.sidebar.checkbox('Close', True, key = '3'):
     st.header('WordCloud for %s sentiment' % (word_sentiment))
